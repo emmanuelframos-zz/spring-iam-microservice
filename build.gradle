@@ -1,0 +1,53 @@
+plugins {
+    id "java"
+    id "org.springframework.boot" version "1.5.14.RELEASE"
+}
+
+repositories {
+    jcenter()
+}
+
+jar {
+    baseName = "iam-microservice"
+}
+
+bootRun {
+    systemProperties System.properties
+}
+
+dependencies {
+
+    /** Spring Boot Stack **/
+    def springBootVersion = '1.5.14.RELEASE'
+    compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-logging:${springBootVersion}"
+
+    /** Database **/
+    compile "com.zaxxer:HikariCP:3.1.0"
+    compile "com.h2database:h2:1.4.196"
+
+    /** Swagger **/
+    compile "io.springfox:springfox-swagger2:2.8.0"
+    compile "io.springfox:springfox-swagger-ui:2.8.0"
+
+    /** Utils **/
+    compile "org.apache.commons:commons-lang3:3.7"
+    compile "org.apache.httpcomponents:httpclient:4.5.5"
+
+    /** JWT **/
+    compile "com.auth0:java-jwt:3.3.0"
+
+    /** Tests **/
+    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+}
+
+test {
+    minHeapSize = "128m"
+    maxHeapSize = "512m"
+
+    beforeTest { testName ->
+        logger.lifecycle("Running: " +  testName)
+    }
+}
