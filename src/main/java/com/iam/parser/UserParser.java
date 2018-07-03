@@ -1,4 +1,4 @@
-package com.iam.api.v1;
+package com.iam.parser;
 
 import com.iam.api.v1.dto.PhoneDTO;
 import com.iam.api.v1.dto.UserDTO;

@@ -2,7 +2,8 @@ package com.iam.api.v1;
 
 import com.iam.api.v1.dto.UserDTO;
 import com.iam.domain.User;
-import com.iam.service.IAMService;
+import com.iam.parser.UserParser;
+import com.iam.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ import static org.springframework.http.ResponseEntity.ok;
 public class IAMRestController {
 
     @Autowired
-    private IAMService iamService;
+    private UserService userService;
 
     @Autowired
     private UserParser userParser;
@@ -30,17 +31,17 @@ public class IAMRestController {
     @PostMapping("/signup")
     public ResponseEntity<UserDTO> signUp(@RequestBody UserDTO userDTO){
         User user = userParser.toDomain(userDTO);
-        user = iamService.signUp(user);
+        user = userService.signUp(user);
         return ok(userParser.toDTO(user));
     }
 
     @GetMapping("/login")
-    public ResponseEntity<String> login(){
-        return ok("Login");
+    public ResponseEntity<String> login() {
+        return ok("login");
     }
 
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> findAllUsers() {
-        return ok(iamService.findAllUsers().stream().map(u -> userParser.toDTO(u)).collect(Collectors.toList()));
+        return ok(userService.findAll().stream().map(u -> userParser.toDTO(u)).collect(Collectors.toList()));
     }
 }

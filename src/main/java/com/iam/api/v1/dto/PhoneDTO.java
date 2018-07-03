@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class PhoneDTO {
 
     public String ddd;
+
     public String number;
 
 }

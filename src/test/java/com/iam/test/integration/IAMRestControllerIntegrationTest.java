@@ -1,6 +1,6 @@
 package com.iam.test.integration;
 
-import com.iam.Application;
+import com.Application;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
