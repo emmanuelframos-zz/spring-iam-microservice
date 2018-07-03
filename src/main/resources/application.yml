@@ -8,9 +8,15 @@ spring:
         path: /h2-console
         settings:
           web-allow-others: true
+    jpa:
+      show-sql: true
+      auto-ddl: create
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
     datasource:
       url: jdbc:h2:mem:~/test;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1
-      username: h2_user
-      password: h2us3r
+      username: sa
+      password: sa
       driverClassName: org.h2.Driver
       poolSize: 3
