@@ -58,8 +58,3 @@ parts-and-services-api.jar
 
 # TeXlipse plugin
 .texlipse
-
-# Gradle WRAPER
-gradle/wrapper/*
-gradlew  
-gradlew.bat
