@@ -1,10 +1,12 @@
 package com.iam.api.v1;
 
+import com.exception.BusinessException;
 import com.iam.api.v1.dto.UserDTO;
 import com.iam.domain.User;
 import com.iam.parser.UserParser;
 import com.iam.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,10 +31,10 @@ public class IAMRestController {
     private UserParser userParser;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserDTO> signUp(@RequestBody UserDTO userDTO){
-        User user = userParser.toDomain(userDTO);
+    public ResponseEntity<UserDTO> signUp(@RequestBody UserDTO userDTO) throws BusinessException {
+        User user = userParser.toSave(userDTO);
         user = userService.signUp(user);
-        return ok(userParser.toDTO(user));
+        return new ResponseEntity<>(userParser.toDTO(user), HttpStatus.CREATED);
     }
 
     @GetMapping("/login")

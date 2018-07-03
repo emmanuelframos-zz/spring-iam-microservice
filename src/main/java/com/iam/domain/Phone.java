@@ -29,7 +29,7 @@ public class Phone {
     @Column(name = "IP_DDD", nullable = false, length = 2)
     private String ddd;
 
-    @Column(name = "IP_NMBR", nullable = false, length = 10)
+    @Column(name = "IP_NUMBER", nullable = false, length = 10)
     private String number;
 
     @ManyToOne

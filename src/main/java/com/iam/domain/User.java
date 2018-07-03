@@ -4,7 +4,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.util.CollectionUtils;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +17,7 @@ import javax.persistence.Temporal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
 
@@ -37,31 +37,34 @@ public class User {
     @GeneratedValue(generator="IAM_USER_SEQ")
     private Long id;
 
-    @Column(name = "IU_NM", nullable = false, length = 100)
+    @Column(name= "IU_UUID")
+    private UUID uuid;
+
+    @Column(name = "IU_NAME", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "IU_EML", nullable = false, length = 50)
+    @Column(name = "IU_EMAIL", nullable = false, length = 50)
     private String email;
 
-    @Column(name = "IU_PSSWD", nullable = false, length = 8)
+    @Column(name = "IU_PASSWORD", nullable = false, length = 8)
     private String password;
 
     @CreatedDate
     @Temporal(TIMESTAMP)
-    @Column(name = "IU_CRTD")
+    @Column(name = "IU_CREATED")
     private Date created;
 
     @LastModifiedDate
     @Temporal(TIMESTAMP)
-    @Column(name = "IU_LST_MDF")
+    @Column(name = "IU_LAST_MODIFIED")
     private Date lastModified;
 
     @Temporal(TIMESTAMP)
-    @Column(name = "IU_LST_LGN", nullable = false)
+    @Column(name = "IU_LAST_LOGIN", nullable = false)
     private Date lastLogin;
 
-    @Column(name = "IU_TKN", nullable = false)
-    private String token;
+    @Column(name = "IU_TOKEN", nullable = false)
+    private UUID token;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Phone> phones;
@@ -126,12 +129,20 @@ public class User {
         this.lastLogin = lastLogin;
     }
 
-    public String getToken() {
+    public UUID getToken() {
         return token;
     }
 
-    public void setToken(String token) {
+    public void setToken(UUID token) {
         this.token = token;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 
     public Set<Phone> getPhones() {
@@ -139,7 +150,6 @@ public class User {
     }
 
     public void addPhone(Phone phone) {
-        if (!CollectionUtils.isEmpty(this.phones))
-            this.phones.add(phone);
+        this.phones.add(phone);
     }
 }

@@ -7,13 +7,16 @@ import com.iam.domain.User;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
 public class UserParser {
 
     public UserDTO toDTO(User user){
+
         UserDTO userDTO = new UserDTO();
+        userDTO.id = user.getUuid();
         userDTO.email = user.getEmail();
         userDTO.name = user.getEmail();
         userDTO.password = user.getPassword();
@@ -32,21 +35,24 @@ public class UserParser {
         return userDTO;
     }
 
-    public User toDomain(UserDTO userDTO){
+    public User toSave(UserDTO userDTO){
+
         User user = new User();
         user.setName(userDTO.name);
         user.setEmail(userDTO.email);
         user.setPassword(userDTO.password);
-        //TODO Check
         user.setLastLogin(new Date());
-        user.setToken("TOKEN");
+        user.setToken(UUID.randomUUID());
+        user.setUuid(UUID.randomUUID());
 
         userDTO.phones.forEach(p -> {
             Phone phone = new Phone();
             phone.setDdd(p.ddd);
             phone.setNumber(p.number);
+            phone.setUser(user);
             user.addPhone(phone);
         });
+
         return user;
     }
 }

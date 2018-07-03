@@ -6,11 +6,15 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.utils.JsonDateDeserializer;
 import com.utils.JsonDateSerializer;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {
+
+    public UUID id;
 
     public String name;
 
@@ -32,6 +36,9 @@ public class UserDTO {
     @JsonDeserialize(using = JsonDateDeserializer.class)
     public Date lastLogin;
 
-    public String token;
+    public UUID token;
 
+    public UserDTO(){
+        this.phones = new ArrayList<>();
+    }
 }
