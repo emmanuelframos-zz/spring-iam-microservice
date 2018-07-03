@@ -4,7 +4,9 @@ public enum ExceptionMessages {
 
     GENERIC("Um erro ocorreu"),
     INVALID_USER_OR_PASSWORD("Usuário e/ou senha inválidos"),
-    EMAIL_ALREADY_EXISTS("E-mail já existente");
+    EMAIL_ALREADY_EXISTS("E-mail já existente"),
+    INVALID_SESSION("Sessão inválida"),
+    UNAUTHORIZED("Não autorizado");
 
     private String message;
 
