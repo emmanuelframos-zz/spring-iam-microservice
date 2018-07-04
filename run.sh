@@ -1,6 +1,6 @@
 #!/bin/sh
 
-./gradlew clean build -x test
+./gradlew clean build test
 
 docker stop $(docker ps -qa --filter="name=iam-microservice") || true
 
