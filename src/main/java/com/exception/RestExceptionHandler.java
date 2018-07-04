@@ -17,7 +17,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({BusinessException.class})
     public ResponseEntity handleBusinessException(BusinessException ex) {
         logger.error(ex.getMessage(), ex);
-        return new ResponseEntity<>(ErrorDTO.build().message(ex.getExceptionMessages().getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(ErrorDTO.build().message(ex.getExceptionMessages().getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({BusinessRuntimeException.class})
+    public ResponseEntity handleBusinessRuntimeException(BusinessRuntimeException ex) {
+        logger.error(ex.getMessage(), ex);
+        return new ResponseEntity<>(ErrorDTO.build().message(ex.getExceptionMessages().getMessage()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({Exception.class})
