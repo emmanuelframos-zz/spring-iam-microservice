@@ -1,5 +1,7 @@
 package com.iam.test.commons;
 
+import com.commons.dto.ErrorDTO;
+import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.FileSystemResource;
@@ -24,6 +26,8 @@ public class RestRequest<E> {
     private HttpHeaders headers;
 
     private E payload;
+
+    private Gson gson = new Gson();
 
     private RestRequest(){
         this.headers = new HttpHeaders();
@@ -74,7 +78,7 @@ public class RestRequest<E> {
         try {
             return RestTemplateBuilder.build().exchange(requestUrl, method, entity, new ParameterizedTypeReference<E>(){});
         } catch (HttpClientErrorException e) {
-            return new ResponseEntity(e.getStatusCode());
+            return new ResponseEntity(gson.fromJson(e.getResponseBodyAsString(), ErrorDTO.class), e.getStatusCode());
         }
     }
 
@@ -88,7 +92,7 @@ public class RestRequest<E> {
         try {
             return RestTemplateBuilder.build().exchange(requestUrl, method, entity, responseType);
         } catch (HttpClientErrorException e) {
-            return new ResponseEntity<>(e.getStatusCode());
+            return new ResponseEntity(gson.fromJson(e.getResponseBodyAsString(), ErrorDTO.class), e.getStatusCode());
         }
     }
 
@@ -102,7 +106,7 @@ public class RestRequest<E> {
         try {
             return RestTemplateBuilder.build().exchange(requestUrl, method, entity, responseType);
         } catch (HttpClientErrorException e) {
-            return new ResponseEntity<>(e.getStatusCode());
+            return new ResponseEntity(gson.fromJson(e.getResponseBodyAsString(), ErrorDTO.class), e.getStatusCode());
         }
     }
 
@@ -119,11 +123,14 @@ public class RestRequest<E> {
 
         String requestUrl = this.baseUrl + endpoint;
 
-        return RestTemplateBuilder.build().exchange(
-                requestUrl,
-                HttpMethod.POST,
-                requestEntity,
-                responseType);
+        try {
+            return RestTemplateBuilder.build().exchange(
+                    requestUrl,
+                    HttpMethod.POST,
+                    requestEntity,
+                    responseType);
+        } catch (HttpClientErrorException e) {
+            return new ResponseEntity(gson.fromJson(e.getResponseBodyAsString(), ErrorDTO.class), e.getStatusCode());
+        }
     }
-
 }
