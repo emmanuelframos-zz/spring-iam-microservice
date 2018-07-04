@@ -67,4 +67,13 @@ public class UserValidator {
                 throw new BusinessRuntimeException(ExceptionMessages.PHONE_NUMBER_MANDATORY);
         });
     }
+
+    public void validateProfile(String token) throws BusinessException {
+        validateToken(token);
+    }
+
+    private void validateToken(String token) throws BusinessException {
+        if (StringUtils.isEmpty(token))
+            throw new BusinessException(ExceptionMessages.UNAUTHORIZED);
+    }
 }

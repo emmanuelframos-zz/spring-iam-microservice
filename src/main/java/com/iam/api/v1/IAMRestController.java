@@ -10,18 +10,20 @@ import com.iam.parser.UserParser;
 import com.iam.service.UserService;
 import com.iam.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/v1/iam",
-        consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value="/api/v1/iam", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class IAMRestController {
 
     @Autowired
@@ -33,7 +35,7 @@ public class IAMRestController {
     @Autowired
     private UserValidator userValidator;
 
-    @PostMapping("/signup")
+    @PostMapping(value="/signup", consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<UserDTO> signUp(@RequestBody UserDTO userDTO) throws BusinessException {
 
         userValidator.validateOnSignup(userDTO);
@@ -45,13 +47,25 @@ public class IAMRestController {
         return new ResponseEntity<>(userParser.toDto(user), HttpStatus.CREATED);
     }
 
-    @PostMapping("/login")
+    @PostMapping(value="/login", consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<UserDTO> login(@RequestBody UserLoginDTO userLoginDTO)
             throws UnauthorizedException, EntityNotFoundException, BusinessException {
 
         userValidator.validateOnLogin(userLoginDTO);
 
         User user = userService.login(userLoginDTO);
+
+        return new ResponseEntity<>(userParser.toDto(user), HttpStatus.OK);
+    }
+
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<UserDTO> profile(@RequestHeader(name=HttpHeaders.AUTHORIZATION, required=false) String token,
+                                           @PathVariable("id") String userUUID)
+            throws BusinessException, UnauthorizedException {
+
+        userValidator.validateProfile(token);
+
+        User user = userService.profile(token, userUUID);
 
         return new ResponseEntity<>(userParser.toDto(user), HttpStatus.OK);
     }

@@ -29,7 +29,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({UnauthorizedException.class})
     public ResponseEntity handleUnauthorizedException(UnauthorizedException ex) {
         logger.error(ex.getMessage(), ex);
-        return new ResponseEntity<>(ErrorDTO.build().message(ExceptionMessages.INVALID_USER_OR_PASSWORD.getMessage()), HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(ErrorDTO.build().message(ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler({EntityNotFoundException.class})

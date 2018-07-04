@@ -1,5 +1,6 @@
 package com.iam.service;
 
+import com.config.SessionConfig;
 import com.exception.BusinessException;
 import com.exception.EntityNotFoundException;
 import com.exception.ExceptionMessages;
@@ -10,14 +11,19 @@ import com.iam.repository.UserRepository;
 import com.utils.BCryptUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 public class UserService {
+
+    @Autowired
+    private SessionConfig sessionConfig;
 
     @Autowired
     private UserRepository userRepository;
@@ -42,7 +48,7 @@ public class UserService {
             throw new EntityNotFoundException();
 
         if (!BCryptUtils.matches(userLoginDTO.password, user.getPassword()))
-            throw new UnauthorizedException();
+            throw new UnauthorizedException(ExceptionMessages.INVALID_USER_OR_PASSWORD);
 
         this.updateLastLogin(user);
 
@@ -52,5 +58,36 @@ public class UserService {
     private void updateLastLogin(User user){
         user.setLastLogin(new Date());
         this.userRepository.save(user);
+    }
+
+    @Transactional(readOnly = true)
+    public User profile(String token, String userUUID) throws UnauthorizedException, BusinessException {
+        User user = this.userRepository.findByUuid(UUID.fromString(userUUID));
+
+        if (Objects.isNull(user))
+            throw new BusinessException(ExceptionMessages.USER_NOT_FOUND);
+
+        if (tokenAreEquals(user, token)){
+            checkIfSessionIsctive(user);
+        }else {
+            throw new UnauthorizedException(ExceptionMessages.UNAUTHORIZED);
+        }
+
+        return user;
+    }
+
+    private boolean tokenAreEquals(User user, String token){
+        return user.getToken().equals(token);
+    }
+
+    private void checkIfSessionIsctive(User user) throws UnauthorizedException {
+        LocalDateTime lastLogin = new java.sql.Timestamp(user.getLastLogin().getTime()).toLocalDateTime();
+        LocalDateTime now = LocalDateTime.now();
+
+        Duration duration = Duration.between(lastLogin, now);
+        long minutes = Math.abs(duration.toMinutes());
+
+        if (minutes > sessionConfig.getSessionTime())
+            throw new UnauthorizedException(ExceptionMessages.INVALID_SESSION);
     }
 }

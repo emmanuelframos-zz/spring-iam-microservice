@@ -7,6 +7,7 @@ public enum ExceptionMessages {
     EMAIL_ALREADY_EXISTS("E-mail já existente"),
     INVALID_SESSION("Sessão inválida"),
     UNAUTHORIZED("Não autorizado"),
+    USER_NOT_FOUND("Usuário não encontrado"),
     USER_NAME_MANDATORY("Nome do usuário é obrigatório"),
     USER_EMAIL_MANDATORY("Email do usuário é obrigatório"),
     USER_EMAIL_INVALID("E-mail invalido"),
