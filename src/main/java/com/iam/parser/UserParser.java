@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Component
 public class UserParser {
 
-    public UserDTO toDTO(User user){
+    public UserDTO toDto(User user){
 
         UserDTO userDTO = new UserDTO();
         userDTO.id = user.getUuid().toString();
@@ -35,6 +35,19 @@ public class UserParser {
             }).collect(Collectors.toList());
         return userDTO;
     }
+
+    public UserDTO toDtoOnSignup(User user){
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.id = user.getUuid().toString();
+        userDTO.created = user.getCreated();
+        userDTO.lastLogin = user.getLastLogin();
+        userDTO.lastModified = user.getLastModified();
+        userDTO.token = user.getToken();
+
+        return userDTO;
+    }
+
 
     public User toSave(UserDTO userDTO){
 

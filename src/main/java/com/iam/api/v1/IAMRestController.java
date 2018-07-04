@@ -45,7 +45,7 @@ public class IAMRestController {
 
         user = userService.signUp(user);
 
-        return new ResponseEntity<>(userParser.toDTO(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(userParser.toDtoOnSignup(user), HttpStatus.CREATED);
     }
 
     @GetMapping("/login")
@@ -55,6 +55,6 @@ public class IAMRestController {
 
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> findAllUsers() {
-        return ok(userService.findAll().stream().map(u -> userParser.toDTO(u)).collect(Collectors.toList()));
+        return ok(userService.findAll().stream().map(u -> userParser.toDto(u)).collect(Collectors.toList()));
     }
 }
