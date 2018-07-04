@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "86cf25a2-6f8f-4a6a-85f5-4ba95e80e0d6",
+		"name": "IAM Microservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1 Signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"João da Silva\",\r\n\t\"email\": \"joao@silva.org\",\r\n\t\"password\": \"hunter2hunter2\",\r\n\t\"phones\": [\r\n\t\t{\r\n\t\t\t\"number\": \"987654321\",\r\n\t\t\t\"ddd\": \"21\"\r\n\t\t}\r\n\t]\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/v1/iam/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"v1",
+						"iam",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"email\": \"joao@silva.org\",\r\n\t\"password\": \"hunterxhunter\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/v1/iam/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"v1",
+						"iam",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3  Profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "555"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:9000/api/v1/iam/profile/222",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"v1",
+						"iam",
+						"profile",
+						"222"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
