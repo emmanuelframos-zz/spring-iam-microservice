@@ -4,6 +4,7 @@ import com.iam.api.v1.dto.PhoneDTO;
 import com.iam.api.v1.dto.UserDTO;
 import com.iam.domain.Phone;
 import com.iam.domain.User;
+import com.utils.BCryptUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -16,7 +17,7 @@ public class UserParser {
     public UserDTO toDTO(User user){
 
         UserDTO userDTO = new UserDTO();
-        userDTO.id = user.getUuid();
+        userDTO.id = user.getUuid().toString();
         userDTO.email = user.getEmail();
         userDTO.name = user.getEmail();
         userDTO.password = user.getPassword();
@@ -40,9 +41,9 @@ public class UserParser {
         User user = new User();
         user.setName(userDTO.name);
         user.setEmail(userDTO.email);
-        user.setPassword(userDTO.password);
+        user.setPassword(BCryptUtils.hash(userDTO.password, 12));
         user.setLastLogin(new Date());
-        user.setToken(UUID.randomUUID());
+        user.setToken(BCryptUtils.hash(UUID.randomUUID().toString(), 12));
         user.setUuid(UUID.randomUUID());
 
         userDTO.phones.forEach(p -> {

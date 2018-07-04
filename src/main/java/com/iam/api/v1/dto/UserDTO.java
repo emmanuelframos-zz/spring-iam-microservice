@@ -9,12 +9,11 @@ import com.utils.JsonDateSerializer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {
 
-    public UUID id;
+    public String id;
 
     public String name;
 
@@ -36,7 +35,7 @@ public class UserDTO {
     @JsonDeserialize(using = JsonDateDeserializer.class)
     public Date lastLogin;
 
-    public UUID token;
+    public String token;
 
     public UserDTO(){
         this.phones = new ArrayList<>();

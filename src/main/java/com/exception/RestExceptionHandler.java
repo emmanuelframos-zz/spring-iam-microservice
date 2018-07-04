@@ -29,6 +29,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({Exception.class})
     public ResponseEntity handleTechnicalException(Exception ex) {
         logger.error(ex.getMessage(), ex);
-        return new ResponseEntity<>(new Error(ExceptionMessages.GENERIC.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(ErrorDTO.build().message(ExceptionMessages.GENERIC.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

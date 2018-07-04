@@ -11,6 +11,8 @@ import org.springframework.util.StringUtils;
 @Component
 public class UserValidator {
 
+    private static final Integer PASSWORD_LENGTH = 8;
+
     public void validateOnSignup(UserDTO userDTO) throws BusinessException {
         validateName(userDTO);
         validateEmail(userDTO);
@@ -31,6 +33,9 @@ public class UserValidator {
     private void validatePassword(UserDTO userDTO) throws BusinessException {
         if (StringUtils.isEmpty(userDTO.password))
             throw new BusinessException(ExceptionMessages.USER_PASSWORD_MANDATORY);
+
+        if (userDTO.password.length() < PASSWORD_LENGTH)
+            throw new BusinessException(ExceptionMessages.USER_PASSWORD_TOO_SMALL);
     }
 
     private void validatePhones(UserDTO userDTO) throws BusinessException {

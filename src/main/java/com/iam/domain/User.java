@@ -46,7 +46,7 @@ public class User {
     @Column(name = "IU_EMAIL", nullable = false, length = 50)
     private String email;
 
-    @Column(name = "IU_PASSWORD", nullable = false, length = 8)
+    @Column(name = "IU_PASSWORD", nullable = false)
     private String password;
 
     @CreatedDate
@@ -64,7 +64,7 @@ public class User {
     private Date lastLogin;
 
     @Column(name = "IU_TOKEN", nullable = false)
-    private UUID token;
+    private String token;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Phone> phones;
@@ -129,11 +129,11 @@ public class User {
         this.lastLogin = lastLogin;
     }
 
-    public UUID getToken() {
+    public String getToken() {
         return token;
     }
 
-    public void setToken(UUID token) {
+    public void setToken(String token) {
         this.token = token;
     }
 
