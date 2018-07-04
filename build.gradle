@@ -1,6 +1,8 @@
 plugins {
     id "java"
     id "org.springframework.boot" version "1.5.14.RELEASE"
+    id "org.sonarqube" version "2.6.2"
+    id "jacoco"
 }
 
 repositories {
@@ -50,5 +52,21 @@ test {
 
     beforeTest { testName ->
         logger.lifecycle("Running: " +  testName)
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.host.url", "http://buzz-build-aws.dextra-sw.com:9000"
+        property "sonar.projectName", "John Deere - IAM"
+        property "sonar.projectKey", "iammicroservice"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.language", "java"
+        property "sonar.java.source", "1.8"
+        property "sonar.java.binaries", "build/classes"
+        property "sonar.tests", "src/test"
+        property "sonar.jacoco.reportPaths", "{project.buildDir}/jacoco/test.exec"
+        property "sonar.login", "cicd"
+        property "sonar.password", "G:xyQ4S?>;_7,jK("
     }
 }

@@ -8,6 +8,8 @@ public class UserLoginDTO {
     public String email;
     public String password;
 
-    public UserLoginDTO(){}
+    public UserLoginDTO(){
+        //Avoid errors on parsing
+    }
 
 }

@@ -36,7 +36,9 @@ public class Phone {
     @JoinColumn(name="IP_IU_ID", referencedColumnName="IU_ID")
     private User user;
 
-    public Phone(){}
+    public Phone(){
+        //Avoid errors on parsing
+    }
 
     public Long getId() {
         return id;
