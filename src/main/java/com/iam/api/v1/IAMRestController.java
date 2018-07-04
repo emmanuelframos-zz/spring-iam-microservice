@@ -40,7 +40,7 @@ public class IAMRestController {
 
         userValidator.validateOnSignup(userDTO);
 
-        User user = userParser.toSave(userDTO);
+        User user = userParser.toDomain(userDTO);
 
         user = userService.signUp(user);
 

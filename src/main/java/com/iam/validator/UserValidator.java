@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class UserValidator {
 
     private static final Integer PASSWORD_LENGTH = 8;
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+    private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public void validateOnSignup(UserDTO userDTO) throws BusinessException {
