@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 @Component
 public class UserParser {
 
-    public UserDTO toDto(User user){
+    @Deprecated
+    public UserDTO toDto0(User user){
 
         UserDTO userDTO = new UserDTO();
         userDTO.id = user.getUuid().toString();
@@ -36,7 +37,7 @@ public class UserParser {
         return userDTO;
     }
 
-    public UserDTO toDtoOnSignup(User user){
+    public UserDTO toDto(User user){
 
         UserDTO userDTO = new UserDTO();
         userDTO.id = user.getUuid().toString();
@@ -47,7 +48,6 @@ public class UserParser {
 
         return userDTO;
     }
-
 
     public User toSave(UserDTO userDTO){
 

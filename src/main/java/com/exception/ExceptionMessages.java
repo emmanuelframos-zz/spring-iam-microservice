@@ -9,6 +9,7 @@ public enum ExceptionMessages {
     UNAUTHORIZED("Não autorizado"),
     USER_NAME_MANDATORY("Nome do usuário é obrigatório"),
     USER_EMAIL_MANDATORY("Email do usuário é obrigatório"),
+    USER_EMAIL_INVALID("E-mail invalido"),
     USER_PASSWORD_MANDATORY("Senha do usuário é obrigatória"),
     USER_PASSWORD_TOO_SMALL("Senha do usuário deve ter no mínimo oito dígitos"),
     USER_PHONE_MANDATORY("Telefone do usuário é obrigatório"),

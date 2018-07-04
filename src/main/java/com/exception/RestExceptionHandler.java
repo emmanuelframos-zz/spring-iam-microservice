@@ -26,6 +26,18 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(ErrorDTO.build().message(ex.getExceptionMessages().getMessage()), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler({UnauthorizedException.class})
+    public ResponseEntity handleUnauthorizedException(UnauthorizedException ex) {
+        logger.error(ex.getMessage(), ex);
+        return new ResponseEntity<>(ErrorDTO.build().message(ExceptionMessages.INVALID_USER_OR_PASSWORD.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler({EntityNotFoundException.class})
+    public ResponseEntity handleEntityNotFoundException(EntityNotFoundException ex) {
+        logger.error(ex.getMessage(), ex);
+        return new ResponseEntity<>(ErrorDTO.build().message(ExceptionMessages.INVALID_USER_OR_PASSWORD.getMessage()), HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler({Exception.class})
     public ResponseEntity handleTechnicalException(Exception ex) {
         logger.error(ex.getMessage(), ex);
