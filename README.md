@@ -75,4 +75,4 @@ Access Swagger in [http://localhost:9000](http://localhost:9000) or on Cloud [ht
 ![Alt text](sonar_analysis.png?raw=true "Sonar")
 
 ## License
-It is free software, and may be redistributed.
+Apache License 2.0.
