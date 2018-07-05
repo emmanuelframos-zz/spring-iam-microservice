@@ -29,9 +29,9 @@ public class UserParser {
         User user = new User();
         user.setName(userDTO.name);
         user.setEmail(userDTO.email);
-        user.setPassword(BCryptUtils.hash(userDTO.password, 12));
+        user.setPassword(BCryptUtils.hash(userDTO.password));
         user.setLastLogin(new Date());
-        user.setToken(BCryptUtils.hash(UUID.randomUUID().toString(), 12));
+        user.setToken(UUID.randomUUID().toString());
         user.setUuid(UUID.randomUUID());
 
         userDTO.phones.forEach(p -> {
