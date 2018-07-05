@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "86cf25a2-6f8f-4a6a-85f5-4ba95e80e0d6",
+		"name": "IAM Microservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1 Signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"João da Silva\",\r\n\t\"email\": \"joao@silva.org\",\r\n\t\"password\": \"hunterxhunter\",\r\n\t\"phones\": [\r\n\t\t{\r\n\t\t\t\"number\": \"38884512\",\r\n\t\t\t\"ddd\": \"19\"\r\n\t\t}\r\n\t]\r\n}"
+				},
+				"url": {
+					"raw": "http://18.191.196.18:9000/api/v1/iam/signup",
+					"protocol": "http",
+					"host": [
+						"18",
+						"191",
+						"196",
+						"18"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"v1",
+						"iam",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"email\": \"joao@silva.org\",\r\n\t\"password\": \"hunterxhunter\"\r\n}"
+				},
+				"url": {
+					"raw": "http://18.191.196.18:9000/api/v1/iam/login",
+					"protocol": "http",
+					"host": [
+						"18",
+						"191",
+						"196",
+						"18"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"v1",
+						"iam",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3  Profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "$2a$12$N5zwRlmcSWfOpx7VMCCLf.41pZHnvNw56XCsGdg2EGB6xmIbN1KJK"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://18.191.196.18:9000/api/v1/iam/profile/1588d049-66ab-4808-8d4a-8c9aa39b0b42",
+					"protocol": "http",
+					"host": [
+						"18",
+						"191",
+						"196",
+						"18"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"v1",
+						"iam",
+						"profile",
+						"1588d049-66ab-4808-8d4a-8c9aa39b0b42"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
