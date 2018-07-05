@@ -11,13 +11,13 @@ public class BCryptUtilsTest {
 
     @Test
     public void testMatchesOk(){
-        String hashed = BCryptUtils.hash("p4ssw0rd", 12);
+        String hashed = BCryptUtils.hash("p4ssw0rd");
         Assert.assertTrue(BCryptUtils.matches("p4ssw0rd", hashed));
     }
 
     @Test
     public void testMatchesNOk(){
-        String hashed = BCryptUtils.hash("p4ssw0rd", 12);
+        String hashed = BCryptUtils.hash("p4ssw0rd");
         Assert.assertFalse(BCryptUtils.matches("p4ssword", hashed));
     }
 }
